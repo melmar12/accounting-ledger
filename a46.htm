@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Journal Entry Lookup</title>
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- custom css -->
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .navi {
+        border-bottom: 1px solid #eee;
+      }
+
+      h1, h2 {
+          text-align: center;
+          padding: 50px 0px;
+      }
+
+      td {
+          padding: 5px;
+          border: 1px solid grey;
+      }
+      .btn {
+        margin-top: 20px;
+        float: right;
+      }
+    </style>
+    <script language="javascript" src="AjaxRequest.js"></script>
+    <script language="javascript">
+    function go (col) {
+      AjaxRequest.submit(fred,
+        {
+          'url':'jeajax.asp',
+          'onSuccess':function(req){ q_out.innerHTML=req.responseText; },
+          'onError':function(req){ q_out.innerHTML= req.responseText;}
+        }
+      );
+    }
+    </script>
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+
+      <div class="row justify-content-md-center navi">
+        <div class="col-11">
+          <a href="./">index</a> |
+          <a href="./home.html">home</a>
+        </div>
+      </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-6">
+
+            <h1>Journal Entry Lookup</h1>
+                <form name="fred" action="" method="POST">
+                    <!--Account Description <input type="text" size="35" name="desc" onkeyup="go(5)"><br>-->
+                    <div class="form-group row">
+                      <div class="col-2">
+                        <input placeholder="0000" class="form-control" type="text" name="m1" onkeyup="go(1)">
+                      </div>
+                      <label class="col-10 col-form-label">Source Reference Number</label>
+                    </div>
+                </form>
+
+                <div id="q_out"></div>
+
+                </div>
+            </div>
+        </div>
+
+            <!-- bootstrap v4 alpha JS -->
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>
