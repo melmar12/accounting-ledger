@@ -1,5 +1,5 @@
 <html>
-    <title>mel</title>
+    <title>Full Trial Balance Report</title>
     <head>
     <!-- meta tags -->
     <meta charset="utf-8">
@@ -8,12 +8,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <!-- custom css -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+      h1  {
+        padding: 0px;
+        padding-top: 20px;
+      }
+      #logo {
+        display: block;
+        margin: auto;
+      }
+    </style>
 <body>
   <div class="container-fluid">
-				
+
 	      <div class="row justify-content-md-center navi">
 	        <div class="col-11">
-	          <a href="./">home</a>
+	          <a href="./home.html">home</a> | 
+            <a href="./">index</a>
 	        </div>
 	      </div>
 
@@ -21,6 +32,8 @@
 	        <div class="col-8 col-md-auto">
 
 				<h1>Full Trial Balance</h1>
+        <img src="logo.jpg" id="logo"></br>
+
 				<%
 				Set rs = Server.CreateObject("ADODB.Recordset")
 				sql_string="Select * from glmaster ORDER BY major ASC, minor ASC, sub1 ASC, sub2 ASC"

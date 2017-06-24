@@ -19,7 +19,8 @@
 
       <div class="row justify-content-md-center navi">
         <div class="col-11">
-          <a href="./">home</a>
+          <a href="./home.html">home</a> | 
+          <a href="./">index</a>
         </div>
       </div>
 
@@ -30,27 +31,27 @@
           1. Open SRCGL (Original)
           <br>    (the permanent copy of the general ledger database)
 
-          <% '*************************** functions, subs, then main 
+          <% '*************************** functions, subs, then main
 
           function fixdec (amount)
           dim la, lb, dif, temp
             temp=cStr(amount)
             la=InStr(1,temp,".")
-            lb=len(temp) 
+            lb=len(temp)
             dif=lb-la
             if la = 0 then
                 temp=temp+".00"
             else
-                if  dif=0 then 
+                if  dif=0 then
                     temp=temp+"00"
                else
-                    if dif=1 then 
+                    if dif=1 then
                           temp=temp+"0"
                     else
-                   
+
                     end if
               end if
-           end if       
+           end if
            fixdec=cStr(temp)
           end function
 
@@ -64,10 +65,10 @@
              create_string=create_string +"sub2 integer,"
              create_string=create_string +"acctdesc char(50),"
              create_string=create_string +"balance numeric NOT NULL)"
-             cnnew.execute create_string 
+             cnnew.execute create_string
              if noerrors(cnnew, "Task: Create new glmaster table") then
                    Response.write "<br>4. Created new glmaster table OK"
-             else 
+             else
                    Response.write "<br>4. Create new glmaster table task failed *************************<br>"
           end if
           end sub
@@ -76,8 +77,8 @@
              cnnew.execute "DROP TABLE glmaster", numa
              if noerrors(cnnew, "Task: drop glmaster table") then
                 Response.write "<br>3. Dropped old glmaster table OK"
-             else 
-                Response.write "<br>3. Unable to drop glmaster table. Task Failed ***********************<br>" 
+             else
+                Response.write "<br>3. Unable to drop glmaster table. Task Failed ***********************<br>"
              end if
              buildglmaster (cnnew)
           end sub
@@ -87,8 +88,8 @@
               cnnew.execute "DROP TABLE je", numa
               if noerrors(cnnew, "Task: dropping je table") then
                  Response.write "<p>5. Dropped old je table OK"
-              else 
-                 Response.write "<p>5. Unable to  drop je table. Task Failed **************************<br>" 
+              else
+                 Response.write "<p>5. Unable to  drop je table. Task Failed **************************<br>"
               end if
               buildje(cnnew)
           end sub
@@ -105,11 +106,11 @@
              create_string=create_string +"jesub2 integer,"
              create_string=create_string +"jedesc char(50),"
              create_string=create_string +"jeamount numeric NOT NULL)"
-             cnnew.execute create_string 
+             cnnew.execute create_string
              if noerrors(cnnew, "Task: Create new je table") then
                    Response.write "<br>6. Created new je table OK"
-             else 
-                   Response.write "<br>6. je table create task failed ***********************<br>" 
+             else
+                   Response.write "<br>6. je table create task failed ***********************<br>"
              end if
           end sub
 
@@ -144,7 +145,7 @@
           fuid="gl1425"
           fpwd="UGS42ahvG"
 
-          '*********** open the original general ledger database 
+          '*********** open the original general ledger database
 
           set rsold = Server.CreateObject("ADODB.Recordset")
           rsold.Open "SELECT * FROM glmaster order by major ASC, minor ASC, sub1 ASC, sub2 ASC","DSN=SRCGLC;UID=;PWD=;"
@@ -161,20 +162,20 @@
                     Response.write  fdns
                     Response.write " database OK"
 
-                    call dropglmaster(cnnew) '****** drop, then create the glmaster table 
+                    call dropglmaster(cnnew) '****** drop, then create the glmaster table
 
                     Response.write "<p><table>"
                     Response.write "<tr><td>major</td><td>minor</td><td>sub1</td><td>sub2</td><td> acctdesc</td><td>balance</td></tr>"
 
                     while not rsold.EOF   '****** loop thru the SRCGL table rows,
-          '                                                        copying each  to the new glmaster 
+          '                                                        copying each  to the new glmaster
 
-                           Insert_String = "INSERT INTO glmaster (major,minor,sub1,sub2,acctdesc,balance) VALUES (" 
+                           Insert_String = "INSERT INTO glmaster (major,minor,sub1,sub2,acctdesc,balance) VALUES ("
                            Insert_String = Insert_String + cStr(rsold("major")) + ","
                            Insert_String = Insert_String + cStr(rsold("minor")) + ","
                            Insert_String = Insert_String + cStr(rsold("sub1")) + ","
                            Insert_String = Insert_String + cStr(rsold("sub2")) + ","
-                           Insert_String = Insert_String + chr(39)+cStr(rsold("acctdesc")) + chr(39) + "," 
+                           Insert_String = Insert_String + chr(39)+cStr(rsold("acctdesc")) + chr(39) + ","
                            Insert_String = Insert_String + cStr(rsold("balance")) + ")"
 
                            cnnew.execute Insert_String '****** add the row to the new table
@@ -193,7 +194,7 @@
 
                            deval=rsold("balance") '************* get the balance
                            deval=fixdec(deval)
-           
+
                            Response.write deval '************** write the balnce to the user
                            Response.write "</td></tr>"
 
@@ -223,7 +224,7 @@
                  Response.write "<p>5. Drop current je table NOT attempted"
                  Response.write "<p>6. Create je table NOT attempted"
 
-          end if 
+          end if
 
           '**************************** back to HTML for the finish
 

@@ -20,10 +20,11 @@
 
       <div class="row justify-content-md-center navi">
         <div class="col-11">
-          <a href="./">home</a>
+          <a href="./home.html">home</a> |
+          <a href="./">index</a>
         </div>
       </div>
-        
+
         <div class="row justify-content-md-center">
             <div class="col-6">
       <%
@@ -66,8 +67,8 @@
               SQLString = "SELECT * FROM glmaster WHERE major=" + arrayInput(0,k) + " AND minor=" + arrayInput(1,k) + " AND sub1=" + arrayInput(2,k) + " AND sub2=" + arrayInput(3,k)
               'response.write "</br>"+ SQLString
               rs.open SQLString,"DSN=gl1425;UID=gl1425;PWD=UGS42ahvG;"
-              
-          else 
+
+          else
               response.write "</br>Finished checking accounts</br>"
               exit for
           end if
@@ -80,7 +81,7 @@
               response.write "</br>Checking account major " +arrayInput(0,k)+ " minor "+arrayInput(1,k)+ " sub1 "+ arrayInput(2,k) +" sub2 " +arrayInput(3,k)
               response.write "</br>Account Number valid</br>"
               validacctnum = validacctnum+1
-              
+
           end if
 
           rs.close
@@ -99,8 +100,8 @@
               end if
           next
       next
-             
-      if validacctnum>1 then  
+
+      if validacctnum>1 then
           response.write "</br>Found " + cstr(validacctnum)+ " valid accounts.</br>"
       else
           response.write "</br>Found " + cstr(validacctnum)+ " valid account.</br>"
@@ -108,12 +109,12 @@
       response.write "Number of errors is " + cstr(err_count) +"</br>"
 
 
-      set cn=server.createobject("ADODB.connection")   
+      set cn=server.createobject("ADODB.connection")
       cn.open "gl1425","gl1425","UGS42ahvG"
       cn.BeginTrans
       if err_count = 0 then
           response.write "</br>-----------Creating journal entries-----------</br>"
-              
+
 
           for k = 0 to Request.Form("numvalid")-1
 
@@ -123,13 +124,13 @@
                   wend
                   sql = "INSERT INTO je (sourceref, srseq, jemajor, jeminor, jesub1, jesub2, jeamount, jedesc) VALUES (" + cstr(srcnum) + ","+cstr(k+1)+ ","+ arrayInput(0,k) + "," + arrayInput(1,k) + "," + arrayInput(2,k) + "," + arrayInput(3,k) + "," + arrayInput(4,k) + ",'" + arrayInput(5,k) + "')"
                   response.write "</br>"+sql
-                  
-                  cn.execute sql,numa 
+
+                  cn.execute sql,numa
               else
                   sql = "INSERT INTO je (sourceref, srseq, jemajor, jeminor, jesub1, jesub2, jeamount, jedesc) VALUES (" + cstr(srcnum) + ","+cstr(k+1)+ ","+ arrayInput(0,k) + "," + arrayInput(1,k) + "," + arrayInput(2,k) + "," + arrayInput(3,k) +","+arrayInput(4,k)+",' ')"
-                  response.write "</br>"+sql    
-                  
-                  cn.execute sql,numa 
+                  response.write "</br>"+sql
+
+                  cn.execute sql,numa
 
               end if
               if numa=1 then
@@ -142,29 +143,29 @@
           else
               response.write what_error
       end if
-          
+
 
       if err_count = 0 then
           response.write "</br>-----------Updating account balances-----------</br>"
           for k = 0 to Request.Form("numvalid")-1
-              
+
               newBal = cdbl(arrayInput(4,k))
               balances(k) = cdbl(balances(k)) + newBal
               sql = "UPDATE glmaster set balance = " + cstr(balances(k)) + " where major=" + arrayInput(0,k) + " AND minor=" +arrayInput(1,k) + " AND sub1=" + arrayInput(2,k) + " AND sub2=" + arrayInput(3,k)
               'response.write "</br>"+sql
-                  
-              cn.execute sql,numa 
-                  
+
+              cn.execute sql,numa
+
               if numa=1 then
                   response.write "<P>Balance of account major " +arrayInput(0,k)+ " minor "+arrayInput(1,k)+ " sub1 "+ arrayInput(2,k) +" sub2 " +arrayInput(3,k) + " successfully updated.</br>"
               else
-                  err_count = err_count+1    
+                  err_count = err_count+1
                   response.write  "<P>Balance of account major " +arrayInput(0,k)+ " minor "+arrayInput(1,k)+ " sub1 "+ arrayInput(2,k) +" sub2 " +arrayInput(3,k) + " failed to update.</br>"
               end if
 
           next
       else
-          
+
       end if
 
       if err_count =0 then
@@ -181,7 +182,7 @@
 
           for k=0 to request.form("numvalid")-1
               sql = "SELECT * FROM glmaster where major=" + arrayInput(0,k) + " AND minor=" + arrayInput(1,k) + " AND sub1=" +arrayInput(2,k) + " AND sub2=" + arrayInput(3,k)
-          
+
               set rs=Server.CreateObject("ADODB.Recordset")
               rs.open sql,"DSN=gl1425;UID=gl1425;PWD=UGS42ahvG;"
               while not rs.eof
@@ -215,7 +216,7 @@
           for k=0 to request.form("numvalid")-1
               sql="SELECT * FROM je where sourceref=" +srcnum
               sql=sql+" AND srseq="+cstr(k+1)
-          
+
               set rs=Server.CreateObject("ADODB.Recordset")
               rs.open sql,"DSN=gl1425;UID=gl1425;PWD=UGS42ahvG;"
               while not rs.eof

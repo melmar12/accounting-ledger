@@ -160,6 +160,9 @@ function validate()
         // inputs must = 0
         err_count=err_count+1;
         document.a3form.msgwin.value = document.a3form.msgwin.value + crlf +err_count.toString()+ ". Sum of Transaction Amounts not zero";
+
+        // angela also yells at you
+        document.getElementById('angeladiv').innerHTML = '<img src="angela.gif"><h2 id="angela-quote">"the books dont balance"</h1>';
     }
     if (parseInt(a3form.numvalid.value) < 2)
     {

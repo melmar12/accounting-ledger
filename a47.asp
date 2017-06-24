@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="styles.css">
 <body>
   <div class="container-fluid">
-				
+
 	      <div class="row justify-content-md-center navi">
 	        <div class="col-11">
-	          <a href="./">home</a>
+	          <a href="./home.html">home</a> |
+            <a href="./"> index</a>
 	        </div>
 	      </div>
 

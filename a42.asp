@@ -47,7 +47,7 @@
       sub pass1
       %>
       <div class="col-3">
-      <h1>Find Account</h1>
+      <h1>Find Account to Modify</h1>
       <form action="a42.asp" method="POST" name="f1">
         <table>
             <tr>
